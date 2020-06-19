@@ -9,7 +9,8 @@ import { ItemType } from './dto/create-item.dto';
 export class ItemsService {
     constructor(@InjectRepository(Item) private itemRepo: Repository<Item>) { }
 
-    async create(createItemDto: ItemInput): Promise<ItemType> {
+    async createOrUpdate(createItemDto: ItemInput): Promise<ItemType> {
+        console.log(createItemDto);
         const createdItem = await this.itemRepo.save(createItemDto);
         return createdItem;
     }
@@ -22,7 +23,10 @@ export class ItemsService {
         return await this.itemRepo.findOne(id);
     }
 
-    async delete(item: ItemInput) {
-        return await this.itemRepo.delete(item);
+    async delete(id: string) {
+
+        const delItem = await this.itemRepo.delete(id);
+        // console.log(delItem);
+        return id;
     }
 }

@@ -15,18 +15,19 @@ export class ItemsResolver {
 
     @Mutation(() => ItemType)
     async createItem(@Args('input') input: ItemInput): Promise<ItemInput> {
-        return this.itemsService.create(input);
+        console.log(input);
+        return this.itemsService.createOrUpdate({...input});
     }
 
-    // @Mutation(() => ItemType)
-    // async updateItem(
-    //     @Args('id') id: string,
-    //     @Args('input') input: ItemInput
-    // ): Promise<ItemInput> {
-    //     return this.itemsService.update(id, input);
-    // }
+    @Mutation(() => ItemType)
+    async updateItem(
+        @Args('input') input: ItemInput
+    ): Promise<ItemInput> {
+        return this.itemsService.createOrUpdate(input);
+    }
 
-    // async deleteItem(@Args('input') input: ItemInput): Promise<ItemInput> {
-    //     return this.itemsService.delete(input);
-    // }
+    @Mutation(() => ItemType)
+    async deleteItem(@Args('id') id: string) {
+        return this.itemsService.delete(id);
+    }
 }
